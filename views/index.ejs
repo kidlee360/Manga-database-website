@@ -1,0 +1,38 @@
+<%- include('partials/header.ejs') %> 
+    <div class="alert alert-primary" role="alert">
+        Welcome to the Manga Database!
+</div>
+<%- include('partials/navbar.ejs') %>
+    <div class="container">
+        <div class="row">
+            <div class="container text-center">
+                <h3>Genres</h3>
+                <% let Genres = ["Action","Romance","Adventure","Horror","Drama","Sci-Fi","Fantasy","Comedy"] %>
+                <% Genres.forEach(element => { %>
+                    <% if (locals.genre && locals.genre.length > 0) { %>
+                        <ul>
+                            <li class="list-group-item"><%= element %>
+                                <br>
+                                <div class="scrolling-wrapper" style="display: flex; flex-wrap: nowrap; justify-content: center;">
+                                    <div class="card" style="width: 18rem;">
+                                        <img src="<%= cover %>" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><%= title %></h5>
+                                            <p class="card-text"><%= rating %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    <% } else { %>
+                        <ul>
+                            <li class="list-group-item"><%= element %>
+                               <br>
+                               <h2>No mangas added</h2>
+                            </li>
+                        </ul>
+                <% }}) %> 
+            </div>
+        </div>
+    </div>
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,9 @@
+.scrolling-wrapper {
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.card {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
