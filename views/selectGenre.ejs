@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Genre</title>
+</head>
+<body>
+  <h1>Select a Genre</h1>
+  <p>The genre "<%= tempManga.genre %>" is not available. Please select a substitute genre:</p>
+  <form action="/selectGenre" method="post">
+    <select name="genre" required>
+      <% availableGenres.forEach(function(genre) { %>
+        <option value="<%= genre %>"><%= genre %></option>
+      <% }); %>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

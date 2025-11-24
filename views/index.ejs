@@ -1,37 +1,75 @@
 <%- include('partials/header.ejs') %> 
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary" role="alert" id="welcome-alert">
         Welcome to the Manga Database!
-</div>
+    </div>
+    <script>
+        setTimeout(function() {
+            var alert = document.getElementById('welcome-alert');
+            if (alert) alert.style.display = 'none';
+        }, 10000);
+    </script>
 <%- include('partials/navbar.ejs') %>
-    <div class="container">
-        <div class="row">
-            <div class="container text-center">
+    <div class="container bg-transparent">
+        <div class="row bg-transparent">
+            <div class="container-fluid text-center bg-transparent">
                 <h3>Genres</h3>
-                <% let Genres = ["Action","Romance","Adventure","Horror","Drama","Sci-Fi","Fantasy","Comedy"] %>
-                <% Genres.forEach(element => { %>
-                    <% if (locals.genre && locals.genre.length > 0) { %>
-                        <ul>
-                            <li class="list-group-item"><%= element %>
-                                <br>
-                                <div class="scrolling-wrapper" style="display: flex; flex-wrap: nowrap; justify-content: center;">
-                                    <div class="card" style="width: 18rem;">
-                                        <img src="<%= cover %>" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><%= title %></h5>
-                                            <p class="card-text"><%= rating %></p>
+                <% let Genres = ["Action","Romance","Adventure","Horror","Drama","Sci-Fi","Fantasy","Comedy"]; %>
+                <% Genres.forEach(genre => { 
+                    const genreMangas = (locals.manga || []).filter(m => m.genre === genre);
+                %>
+                    <ul style="padding-left: unset;">
+                        <li class="list-group-item text-light"><strong><%= genre %></strong> 
+                            <br>
+                            <% if (genreMangas.length > 0) { %>
+                                <div class="scrolling-wrapper bg-transparent" style="display: flex; flex-wrap: nowrap; justify-content: center;">
+                                    <% genreMangas.forEach(manga => { %>
+                                        <div class="card mb-3" style="max-width: 400px; max-height: 230px; display: flex; flex-direction: row; align-items: stretch; margin: 20px;">
+                                            <div class="card-body" style="flex: 1;">
+                                                <h5 class="card-title"><%= manga.name %></h5>
+                                                <p class="card-text"><strong>Rating:</strong> <%= manga.rating %></p>
+                                                <% if (manga.description) { %>
+                                                    <strong>Description:</strong>
+                                                    <p class="card-text"> <%= manga.description %></p>
+                                                <% } else { %>
+                                                    <div class="form-group">
+                                                    <form action="/description" method="post">
+                                                        <label for="note-<%= manga.id %>">Note:</label>
+                                                        <textarea class="form-control" id="note-<%= manga.id %>" name="note" rows="2" placeholder="Add a short note..." onfocus="document.getElementById('submit-note-<%= manga.id %>').style.display='inline-block';"></textarea>
+                                                        <input type="hidden" name="mangaId" value="<%= manga.id %>">
+                                                        <button type="submit" id="submit-note-<%= manga.id %>" class="btn btn-success mt-2" style="display: none;">Enter</button>
+                                                    </form>
+                                                    </div>
+                                                <% } %>
+                                                
+                                                <script>
+                                                    // Optional: Hide button when textarea loses focus
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        var textarea = document.getElementById('note-<%= manga.id %>');
+                                                        var button = document.getElementById('submit-note-<%= manga.id %>');
+                                                        textarea.addEventListener('blur', function() {
+                                                            setTimeout(function() {
+                                                                button.style.display = 'none';
+                                                            }, 200); // Delay to allow button click
+                                                        });
+                                                    });
+                                                </script>
+                                            </div>
+                                            <img src="<%= manga.image %>" class="img-fluid rounded-end" alt="..." style="width: 180px; object-fit: cover;">
                                         </div>
+                                        <% }); %>
+                                </div>
+                            <% } else { %>
+                                <div class="card mx-auto" style="width: 18rem;">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">No Mangas Added Yet</h5>
+                                        <span style="font-size: 2rem;" aria-label="Sad" title="No mangas yet">&#128577;</span>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    <% } else { %>
-                        <ul>
-                            <li class="list-group-item"><%= element %>
-                               <br>
-                               <h2>No mangas added</h2>
-                            </li>
-                        </ul>
-                <% }}) %> 
+                            <% } %>
+                        </li>
+                    </ul>
+                <% }); %>
             </div>
         </div>
     </div>

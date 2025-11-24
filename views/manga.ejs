@@ -4,10 +4,38 @@
     <h1><%= title %></h1>
     <p><img src="<%= cover %>" alt="manga cover" style="width: 400px; height: 600px;"> </p>
     <p>Genre: <%= genre %></p>
-    <p>Rating: <input type="number" name="rating" min="1" max="10" required> /10</p>
+    
     <p>Summary: <%= description %></p>
-    <form action="/addmanga" method="POST" style="text-align: center;">
-        <button type="submit" class="btn btn-success">Add manga</button>
-    </form>
+    <% if (locals.search == "home search") { %>
+        <% manga.forEach(m =>{ %>
+            <div class="manga-item">
+            <h2><%= m.username || "Anonymous" %></h2>
+            <span>
+                <% for (let i = 1; i <= 5; i++) { %>
+                    <% if (m.rating >= i) { %>
+                        &#9733; <%#-- filled star --%>
+                    <% } else { %>
+                        &#9734; <%#-- empty star --%>
+                    <% } %>
+                <% } %>
+            </span>
+            <p><%= m.review %></p>
+            </div>
+        <% }) %>
+     
+    <% } else if (locals.search == "search") { %>
+        <h2>No Reviews Yet</h2>
+        <h3>Be the first to review</h3>
+        <form action="/login" method="get" style="text-align: center;">
+                <button type="submit" class="btn btn-success">Leave a Review</button>
+        </form>
+
+    <% } else {  %>
+            <form action="/addmanga" method="POST" style="text-align: center;">
+                <p>Rating: <input type="number" name="rating" min="1" max="10" required> /10</p>
+                <button type="submit" class="btn btn-success">Add manga</button>
+            </form>
+    <% } %>
+
 </div>
 <%- include('partials/footer.ejs') %>

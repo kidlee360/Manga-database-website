@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/bloodcrow-webfont.woff2') format('woff2'),
+       url('../fonts/bloodcrow-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .scrolling-wrapper {
     overflow-x: scroll;
     display: flex;
@@ -6,4 +14,156 @@
 .card {
     flex: 0 0 auto;
     margin-right: 10px;
+}
+
+
+.intro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  background: url(../images/web\ anime\ wallpaper.jpeg) no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+
+}
+
+body::before{
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 8px solid transparent;
+  border-radius: 0;
+  pointer-events: none;
+  background-image: linear-gradient(90deg,red,yellow,green,cyan,blue,magenta,red);
+  background-size: 200% 200%;
+  z-index: 4;
+  mask: linear-gradient(white 0 0)padding-box,
+  linear-gradient(white 0 0);
+  mask-composite: exclude;
+  animation: moveGlow 4s linear infinite;
+}
+
+@keyframes moveGlow{
+  0%{
+    background-position: 0 0;
+  }
+  100%{
+    background-position: 200% 200%;
+  }
+}
+
+#intro{
+  position: relative;
+  display: flex;
+  height: 80vh;
+}
+
+#top-rated{
+  margin-top: 150px;
+}
+
+.body{
+  background: black;
+  background-size: cover;
+}
+
+.gojo{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: url("../images/Jujutsu\ Kaisen\ _\ Wallpaper\ _🌀Satoru\ Gojo.jpg") no-repeat center center;
+  background-size: cover;
+  width: 400px;
+  height: 100vh;
+  z-index: -1;
+  /* Ensure the PNG actually has transparency; if not, replace it with a PNG that does */
+}
+
+.luffy{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: url("../images/One\ piece\ luffy\ wallpaper.jpg") no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  width: 300px;
+  z-index: -1;
+}
+
+.naruto{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url("../images/NARUTO\ うずまきナルト_カカシ班\ 自来也弟子.jpg") no-repeat center center;
+  background-size: cover;
+  height: 70vh;
+  width: 300px;
+  z-index: -2;
+}
+
+.animation{
+  position: relative;
+  height: 100vh;
+}
+
+#welcomeText {
+  background-image: linear-gradient(to right, grey, white);
+  
+  /* Standard syntax */
+  background-clip: text;
+  
+  /* For Chrome/Safari/Edge */
+  -webkit-background-clip: text;
+  
+  /* Fallback: If the browser is old, show Blue. */
+  color: white; 
+  
+  /* Modern browsers will use this to make the text see-through */
+  -webkit-text-fill-color: transparent; 
+}
+
+
+@media (max-width: 768px) {
+  .cardparent {
+    height: 150px;
+    width: 85px;
+  }
+  .luffy{
+    display: none;
+    height: 40vh;
+    width: 100px;
+  }
+  .naruto{
+    height: 30vh;
+    width: 200px;
+  }
+  .gojo{
+    display: none;
+    width: 110px;
+    height: 40vh;
+  }
+  .animation{
+    height: 40vh;
+  }
+  #top-rated{
+    margin-top: 50px;
+  }
 }

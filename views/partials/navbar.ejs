@@ -1,4 +1,9 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tranpsarent" style="margin-left:8px ; margin-right: 8px;">
+    <div class="container-fluid bg-body-tertiary">
+          <h1 class="navbar-brand mx-auto" style="position: absolute; left: 50%; transform: translateX(-50%);">Manga Database</h1>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button> 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -10,24 +15,30 @@
                 </a>
                 <ul class="dropdown-menu">
                     <form action="/user" method="post">
-                  <% users.forEach(function(user) { %>
-                      <li></li><a class="dropdown-item" href="/users/<%= user._id %>"><%= user.name %></a></li>
-                  <input class="dropdown-item" type="submit" value="<%= user.id %>" ><label for="<%= user.id %>"><%= user.name %></label>
+                      <input type="submit" name="user" value="Switch User" id="Switch User" hidden>
+                      <label for="Switch User" class="dropdown-item" style="cursor: pointer;">
+                        Switch User
+                      </label>
+                      <input type="submit" name="user" value="New User" id="New User" hidden>
+                      <label for="New User" class="dropdown-item" style="cursor: pointer;">
+                        New User
+                      </label>
+                      <input type="submit" name="user" value="Logout" id="Logout" hidden>
+                      <label for="Logout" class="dropdown-item" style="cursor: pointer;">
+                        Logout
+                      </label>
                     </form>
-                  <% }); %>
+                  
                 </ul>
-              </li>
+            </li>
             <li class="nav-item">
-                <a class="nav-link" href="/mangas/new">Add Manga</a>
+                <a class="nav-link" href="/chat">Chat</a>
             </li>
         </ul>
-
-    </div>
-    <h1 class="navbar-brand mx-auto" style="position: absolute; left: 50%; transform: translateX(-50%);">Manga Database</h1>
-    <form class="d-flex" role="search" method="post" action="/">
+    <form class="d-flex" id="search-manga" role="search" method="post" action="/">
         <input class="form-control me-2" type="search" placeholder="Search Manga" aria-label="Search" name="title">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-
+    </div>
 
 </nav>

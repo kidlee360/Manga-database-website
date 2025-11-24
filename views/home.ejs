@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body class="body">
+    <div class="animation">
+        <div class="gojo"></div>
+        <div class="luffy"></div>
+        <div class="naruto"></div>
+        <div class="d-flex container-fluid justify-content-end gap-2 mt-3 align-items-center">
+            <form action="/search" method="post" class="d-flex">
+                <div class="input-group">
+                    <input type="search" name="title" class="form-control" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="submit" aria-label="Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 0a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <a href="/login" id="loginBtn" class="btn btn-outline-primary">Login</a>
+            <a href="/signup" id="signupBtn" class="btn btn-primary">Sign Up</a>
+        </div>
+        <section id="intro">
+            <span class="text-center" id="welcomeText" style=" font-size: 7vw;font-family: sans-serif; position: absolute; top: 15%; left: 0; width: 80vw; ">
+                <strong>WELCOME TO UG's MANGA DATABASE</strong>
+            </span>
+            <h2 class="text-danger text-center" style="font-size: 3vw; font-family: 'Oswald', sans-serif; position: absolute; bottom: 0; right: 0; width: 30vw;"><em>Discover and rate your favourite mangas</em></h2>
+            
+        </section>
+    </div>
+        <section id="top-rated" style=" gap: 20px; max-height: max-content; justify-content: center; overflow: hidden; width: 100vw;">
+             
+            <h1 class="text-center"><strong class="text-white">Top Rated Mangas</strong></h1>
+            <div class="d-flex" style="justify-content: flex-start; max-height: max-content; overflow-x: auto; gap: 40px;">
+    <% if (locals.topManga && topManga.length) { %>
+        <% topManga.forEach(m => { %>
+            <div class="cardparent d-flex justify-content-center align-items-center position-relative" 
+                 style="width: 250px; height: 400px; background: url(<%= m.image%>); background-size: cover; border-radius: 20px; flex-shrink: 0;">
+                
+                <div class="glass" style="position: absolute; z-index: 1; border-radius: 20px; width: inherit; height: inherit; background-color: transparent; backdrop-filter: blur(10px);">
+                    <span class="position-absolute" style="top: 8px; left: 8px; font-size: 3em;">
+                        <strong style="color: #fff; text-shadow: 2px 2px 6px #222;"><%= topManga.indexOf(m) + 1 %></strong>
+                    </span>
+                </div>
+                
+                <div class="card border border-0" style="width: 150px; background: transparent; z-index: 2;">
+                    <img src="<%= m.image %>" alt="..." style="border-radius: 5px; box-shadow: 0 0 40px rgba(0,0,0,0.9);">
+                    <h3 class="text-white text-center" style="text-shadow: 0 0 10px rgba(0,0,0,1);"><%= m.name %></h3>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-white">No mangas available.</p>
+    <% } %>  
+</div>
+        </section>
+
+        <section id="popular" style="height: 100vh; margin-top: 50px;">
+                        
+            <h1 class="text-center"><strong class="text-white">Popular Mnagas</strong></h1>
+            <div class="d-flex" style="justify-content: flex-start; max-height: max-content; overflow-x: auto; gap: 40px;">
+                <% if (locals.topRated && topRated.length) { %>
+                    <% topRated.forEach(m => { %>
+                     <div class="cardparent d-flex justify-content-center align-items-center position-relative" 
+                 style="width: 250px; height: 400px; background: url(<%= m.image%>); background-size: cover; border-radius: 20px; flex-shrink: 0;">
+                
+                <div class="glass" style="position: absolute; z-index: 1; border-radius: 20px; width: inherit; height: inherit; background-color: transparent; backdrop-filter: blur(10px);">
+                </div>
+                
+                <div class="card border border-0" style="width: 150px; background: transparent; z-index: 2;">
+                    <img src="<%= m.image %>" alt="..." style="border-radius: 5px; box-shadow: 0 0 40px rgba(0,0,0,0.9);">
+                    <h3 class="text-white text-center" style="text-shadow: 0 0 10px rgba(0,0,0,1);"><%= m.name %></h3>
+                </div>
+            </div>
+
+                    <% }) %>
+                <% } else{ %>
+                    <p class="text-white">No mangas available.</p>
+                    <% } %>  
+            </div>
+        </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+    <script>
+       // gsap.to(".cardparent",{rotationZ: -20, duration: 0.5})
+       // gsap.to(".card",{rotationZ: 20, duration: 0.5})
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Fade out #intro as #top-rated scrolls into view
+    gsap.to("#intro //if you want it to  work remove the comment that was added as a classname from here ", {
+        scrollTrigger: {
+            trigger: "#top-rated",
+            start: "top 80%",
+            end: "top 30%",
+            scrub: true
+        },
+        opacity: 0,
+        y: 50,
+        scale: 0.7,
+        ease: "power1.out"
+    });
+
+    // Fade in and grow #top-rated as it scrolls into view
+    gsap.fromTo("#top-rated //if you want it to  work remove the comment that was added as a classname from here ", 
+        { opacity: 0, y: 50, scale: 0.7 }, 
+        {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            scrollTrigger: {
+                trigger: "#top-rated",
+                start: "top 80%",
+                end: "top 30%",
+                scrub: true
+            },
+            ease: "power1.out"
+        }
+    );
+
+    // Fade in and grow #popular as it scrolls into view
+    gsap.fromTo("#popular //if you want it to  work remove the comment that was added as a classname from here ", 
+        { opacity: 0, y: 50, scale: 0.7 }, 
+        {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            scrollTrigger: {
+                trigger: "#popular",
+                start: "top 80%",
+                end: "top 30%",
+                scrub: true
+            },
+            ease: "power1.out"
+        }
+    );
+    </script>
+</body>
+</html>
